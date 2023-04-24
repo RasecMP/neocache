@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>LOGBOOK</title>
+
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <style>
+            
+            body {
+                font-family: "Courier New", monospace;
+                background-color: #f2f2f2;
+            }
+
+            h1 {
+                text-align: center;
+                color: #333;
+                font-size: 2rem;
+                margin-top: 2rem;
+            }
+
+            form {
+                margin: 0 auto;
+                max-width: 400px;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            label {
+                display: block;
+                margin-bottom: 10px;
+                color: #333;
+                font-size: 1.2rem;
+                font-family: "Courier New", monospace;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+                font-family: "Courier New", monospace;
+            }
+
+            input[type="submit"] {
+                font-family: "Courier New", monospace;
+                background-color: rgb(18, 120, 61);
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1.2rem;
+            }
+
+            input[type="submit"]:hover {
+                background-color: rgb(68, 170, 111);
+            }
+
+            #content {
+                margin: 2rem auto;
+                max-width: 600px;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            #dismissable-div {
+                height: 500px;
+                overflow: scroll;
+                overflow-x: hidden;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 9999;
+                align-items: center;
+                justify-content: center;
+                width: 80%;
+                max-width: 500px;
+                margin: 10 auto;
+                padding: 20px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            #dismissable-div img {
+                max-width: 100%;
+            }
+
+            #dismiss-btn {
+                font-family: "Courier New", monospace;
+                position: relative;
+                background-color: rgb(18, 120, 61);
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1.2rem;
+            }
+            #dismiss-btn:hover {
+                background-color: rgb(68, 170, 111);
+            }
+
+            #main {
+                filter: blur(5px);
+            }
+
+            @media only screen and (max-width: 600px) {
+
+                h1 {
+                    font-size: 1.5rem;
+                    margin-top: 1rem;
+                }
+
+                form {
+                    max-width: 300px;
+                    padding: 10px;
+                }
+
+                label {
+                    font-size: 1rem;
+                }
+
+                input[type="text"] {
+                    font-size: 1rem;
+                }
+
+                input[type="submit"] {
+                    font-family: "Courier New", monospace;
+                    background-color: rgb(18, 120, 61);
+                    color: #fff;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                }
+
+                #content {
+                    max-width: 400px;
+                    padding: 10px;
+                }
+
+            }
+        
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="main">
+  
+            <h1>LOGBOOK</h1>
+
+            <form action="/" method="post" id="logbook-form">
+
+                <div>
+
+                    <label for="username">Username:</label>
+
+                    <input type="text" id="username" name="username">
+
+                </div>
+
+                <div>
+
+                    <label for="date">Date:</label>
+
+                    <input type="text" id="date" name="date">
+
+                </div>
+
+                <div>
+
+                    <input type="submit" value="Submit">
+
+                </div>
+
+            </form>
+    
+            <div id="content"></div>
+
+            <script>
+
+                fetch('./logbook.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.trim().split('\n').reverse();
+                    const reversedText = lines.join('\n');
+                    document.getElementById('content').innerText = reversedText;
+                }); 
+
+                // add form validation
+                const form = document.getElementById('logbook-form');
+                form.addEventListener('submit', (event) => {
+
+                    // check if the inputs have a value
+                    const usernameInput = document.getElementById('username');
+                    const dateInput = document.getElementById('date');
+                    
+                    if (!usernameInput.value || !dateInput.value) {
+                        // prevent the form from submitting
+                        event.preventDefault();
+                        // show an error message
+                        alert('Please fill in all fields.');
+
+                    } else {
+
+                        // get the current logbook content
+                        const contentDiv = document.getElementById('content');
+                        const contentText = contentDiv.innerText;
+
+                        // create a regular expression to match the username in contentText
+                        const usernameRegex = new RegExp(`\\b${usernameInput.value}\\b`);
+
+                        // check if the username is already logged or contains the same characters as a logged username
+                        if (contentText.search(usernameRegex) !== -1) {
+
+                            // prevent the form from submitting
+                            event.preventDefault();
+                            // show an error message
+                            alert('Username already logged.');
+
+                        }
+
+                    }
+
+                });
+            
+            </script>
+
+            <script>
+
+                // get the current date
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+
+                // set the date input value
+                const dateInput = document.getElementById('date');
+                dateInput.value = `${day}/${month}/${year}`;
+
+            </script>
+
+        </div>
+
+        <div id="dismissable-div">
+
+            <img src="favicon.ico" alt="Image">
+            
+            <h1>DIGITAL GEOCACHE</h1>
+            <h1>READ PLEASE</h1>
+            <br>
+            <p><strong>Congratulations, you found it! Intencionally or not!</strong></p>
+            <p>Why is this webpage here?</p>
+            <p>It's all part of a mundial game for GPS (Global Positioning System) users, called Geocaching. This game envolves a "treasure" (this webpage) which is hidden by a GPS user, who then shares the exact coordinates of the place for other GPS players to search in a "treasure hunt". Probably the player who has hidden this website found a good place which is not easy to find by other people.</p>
+            <p><strong>IF YOU FOUND THIS WEBSITE ACCIDENTALLY</strong></p>
+            <p>Great! You are welcome to the game! We only ask you to:</p>
+            <ul>
+                <li>Please do not move or damage the website. The real treasure is to find the website and share your thoughts with all the other visitors.</li>
+                <li>Log your visit on the digital logbook</li>
+                <li>If possible let us know about your visit, logging it on the following website.</li>
+            </ul>
+            <p>Geocaching is open to anyone with a GPS and sense of adventure. There are geocaches all arround the world! The game organization is on the Internet. Visit our Web site if you want to know more or leave any comments:</p>
+            <p><a href="http://www.geocaching.com">http://www.geocaching.com</a></p>
+            <p>If this geocache needs to be deslocated for some reazon, please notify us and accept our appologies for any inconvinience caused. We will deal promptly with its removal.</p>
+            <br>
+            <button id="dismiss-btn">OK</button>
+        
+            <script>
+
+                const dismissBtn = document.getElementById('dismiss-btn');
+                const dismissableDiv = document.getElementById('dismissable-div');
+                const mainDiv = document.getElementById("main");
+                
+                dismissBtn.addEventListener('click', function() {
+                    dismissableDiv.style.display = 'none';
+                    mainDiv.style.filter = 'none';
+                });
+                
+                mainDiv.addEventListener('click', function() {
+                    dismissableDiv.style.display = 'none';
+                    mainDiv.style.filter = 'none';
+                });
+
+                if(getCookie("dismissed")){
+                    dismissableDiv.style.display = 'none';
+                    mainDiv.style.filter = 'none';
+                }
+
+                document.getElementById('dismiss-btn').addEventListener('click', function() {
+                    // set the cookie to expire after 1 hour
+                    var expires = new Date();
+                    expires.setTime(expires.getTime() + (1 * 60 * 60 * 1000));
+                    document.cookie = 'dismissed=true;expires=' + expires.toUTCString();
+                });
+
+                document.getElementById('main').addEventListener('click', function() {
+                    // set the cookie to expire after 1 hour
+                    var expires = new Date();
+                    expires.setTime(expires.getTime() + (1 * 60 * 60 * 1000));
+                    document.cookie = 'dismissed=true;expires=' + expires.toUTCString();
+                });
+
+                function getCookie(cname) {
+                    let name = cname + "=";
+                    let ca = document.cookie.split(';');
+                    for(let i = 0; i < ca.length; i++) {
+                        let c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+                
+            </script>
+
+        </div>
+
+    </body>
+
+</html>
