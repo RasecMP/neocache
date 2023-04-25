@@ -16,6 +16,5 @@ I think neocache fits more in the mystery cache type, but its kind of a traditio
 
 Hope this inspires someone. Everything needed is a raspberry pico w and a power bank (or some sort of power sorce).
 
-Donate: https://www.paypal.com/donate/?hosted_button_id=PE3FEW547AKUA
-
 # Thank you!
+Donate: https://www.paypal.com/donate/?hosted_button_id=PE3FEW547AKUA
