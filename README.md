@@ -2,7 +2,7 @@
 
 This repository intends to provide anyone with a raspberry pi pico w to create a simple digital geocache.
 
-Geocaching is a worldwide game. For more information visit https://www.geocaching.com
+Geocaching is a worldwide game. For more information visit: https://www.geocaching.com
 
 To install it simply upload all the files to the raspberry pi pico w. Phew library must be installed.
 
