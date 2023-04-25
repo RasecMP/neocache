@@ -1,4 +1,5 @@
-# pico-w-geocache
+# NEOCACHE
+
 This repository intends to provide anyone with a raspberry pi pico w with a simple digital geocaching logbook.
 To install it simply upload all the files to the raspberry pi pico w. Phew library must be installed.
 
