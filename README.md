@@ -4,7 +4,7 @@ This repository intends to provide anyone with a raspberry pi pico w to create a
 
 Geocaching is a worldwide game. For more information visit: https://www.geocaching.com
 
-To install it simply upload all the files to the raspberry pi pico w. Phew library must be installed.
+To install it simply upload all the files to the raspberry pi pico w. Phew library must be pre-installed.
 
 To activate it run main.py or simply connect the pico w to a power sorce.
 
