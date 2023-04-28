@@ -1,5 +1,5 @@
 # NEOCACHE
-This repository intends to provide anyone with a raspberry pi pico w to create a simple digital geocache.
+This repository intends to provide anyone with a raspberry pi pico w to create a simple digital geocache - a "neocache".
 
 Geocaching is a worldwide game. For more information visit: https://www.geocaching.com
 
@@ -12,7 +12,7 @@ To activate it run main.py or simply connect the pico w to a power sorce.
 To log your visit simply connect to the wifi network (default SSID is GEOCACHING and PW is 12345678) and then access 192.168.4.1 website on a browser.
  
 # Final thoughts.
-I think neocache fits more in the mystery cache type, but its kind of a traditional cache. Its a digital container with a digital logbook!
+I think neocache fits in the mystery cache type, but its kind of a traditional cache. Its a digital container with a digital logbook!
 
 Hope this inspires someone. Everything needed is a raspberry pico w and a power bank (or some sort of power sorce).
 
